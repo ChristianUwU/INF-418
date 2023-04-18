@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
-package com.mycompany.tarea_1.sumados_y_mochila;
+package com.mycompany.tarea1_sumadosymochila;
 
 import java.util.LinkedList;
 
@@ -10,7 +10,7 @@ import java.util.LinkedList;
  *
  * @author Christian
  */
-public class TAREA_1SUMADOS_Y_MOCHILA {
+public class Tarea1_SumadosYMochila {
 
     public static void main(String[] args) {
         LinkedList<Integer> L2 = new LinkedList();
@@ -19,7 +19,10 @@ public class TAREA_1SUMADOS_Y_MOCHILA {
         //sumadosIguales(L2, 10, 1);
         //sumadosPrimos(L2, 10, 1);
         //sumadosEntreAyB(L2, 10, 1, 2, 8);
-        factores(L2, 10, 1);
+        //factores(L2, 10, 1);
+        factores(L2, 12, 1);
+        //factoresDif(L2, 12, 1);
+
     }
 
     //Encontrar los sumandos posibles en una Lista.//
@@ -166,28 +169,38 @@ public class TAREA_1SUMADOS_Y_MOCHILA {
     }
 
     //Dado un entero N, encontrar todos los factores posibles, enteros positivos de N.//
-    //Encontrar los factores posibles en una Lista.//
+    //Encontrar los factores posibles en una Lista./
+    public static boolean multi(int n) {
+        for (int i = 1; i <= n; i++) {
+            if (n % i != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean multiplos(LinkedList<Integer> L1) {
+        for (int i = 0; i < L1.size(); i++) {
+            if (!multi(L1.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void factores(LinkedList<Integer> L1, int n, int i) {
-        int Mul = multiplos(L1);
-        if (Mul > n || L1.size() == 2 && Mul == 1) {
+        int sum = sumar(L1);
+        if (sum > n) {
             return;
         }
-        if (Mul == n) {
+        if (sum == n && multiplos(L1)) {
             System.out.println(L1);
             return;
         }
-        for (int k = i; k <= n; k++) {
-            L1.add(k);
-            factores(L1, n, i++);
+        for (int j = i; j <= n; j++) {
+            L1.add(j);
+            factores(L1, n, j);
             L1.removeLast();
         }
-    }
-
-    public static int multiplos(LinkedList<Integer> L1) {
-        int Mul = 1;
-        for (int i = 0; i < L1.size(); i++) {
-            Mul *= L1.get(i);
-        }
-        return Mul;
     }
 }
